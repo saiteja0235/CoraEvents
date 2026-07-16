@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="cora-gradient" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ff536d"/>
+      <stop offset=".52" stop-color="#e83e83"/>
+      <stop offset="1" stop-color="#b900b8"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="url(#cora-gradient)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M48 20c-1-7-6-10-15-10h-7c-10 0-15 7-15 21s5 21 15 21h10c9 0 13-4 14-11" stroke-width="5"/>
+    <path d="M25 15v39M25 29h19M25 44h17M27 9h18" stroke-width="5"/>
+  </g>
+</svg>

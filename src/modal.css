@@ -1,0 +1,205 @@
+.experienceModal {
+  z-index: 1000 !important;
+  overflow-y: auto;
+  padding: 24px !important;
+  background: #050609d9 !important;
+  backdrop-filter: blur(18px) saturate(1.1);
+}
+
+.modalPanel {
+  box-sizing: border-box;
+  width: min(620px, calc(100vw - 48px)) !important;
+  max-width: 620px !important;
+  min-height: 0 !important;
+  max-height: calc(100vh - 48px);
+  padding: 230px 34px 32px !important;
+  border: 1px solid #ff718766 !important;
+  border-radius: 18px;
+  background: linear-gradient(150deg, #12141aeF, #090a0eef) !important;
+  box-shadow: 0 34px 100px #000c, 0 0 50px #b900b820;
+  color: #fdf6f8 !important;
+  display: block !important;
+  overflow: auto !important;
+}
+
+.modalPanel::before {
+  inset: 0 0 auto !important;
+  width: 100% !important;
+  height: 205px;
+  background:
+    linear-gradient(0deg, #0b0c10 0%, #0b0c1018 75%),
+    linear-gradient(90deg, #b900b830, transparent 60%),
+    url('./assets/cora-luxury-reception.png') center 57% / cover !important;
+}
+
+.modalPanel::after {
+  display: none !important;
+  content: none !important;
+}
+
+.modalBrandLogo {
+  position: absolute;
+  z-index: 2;
+  top: 126px;
+  left: 34px;
+  width: 128px;
+  height: 64px;
+  object-fit: contain;
+  object-position: left center;
+  filter: drop-shadow(0 10px 16px #0008);
+}
+
+.modalPanel .modalX {
+  z-index: 5 !important;
+  top: 16px !important;
+  right: 16px !important;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid #ffffff40;
+  border-radius: 50%;
+  background: #090a0aa8;
+  color: #fff !important;
+  cursor: pointer;
+  transition: background 220ms ease, transform 220ms ease;
+}
+
+.modalPanel .modalX svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.5;
+}
+
+.modalPanel .modalX:hover {
+  background: #ff536d;
+  transform: rotate(90deg);
+}
+
+.modalIntro,
+.modalPanel form,
+.modalPanel > a {
+  position: relative;
+  z-index: 1;
+}
+
+.modalIntro p {
+  color: #ff91a4 !important;
+}
+
+.modalIntro h2 {
+  max-width: 430px;
+  margin: 14px 0 14px !important;
+  color: #fff8fa !important;
+  font-size: clamp(2.8rem, 5vw, 4.35rem) !important;
+  line-height: .88 !important;
+}
+
+.modalIntro h2 i {
+  background: var(--cora-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent;
+}
+
+.modalIntro span {
+  max-width: 460px !important;
+  margin-bottom: 23px !important;
+  color: #d7d0d5 !important;
+}
+
+.modalPanel form {
+  display: grid !important;
+  width: 100% !important;
+  min-width: 0;
+  gap: 10px !important;
+}
+
+.modalPanel input,
+.modalPanel select,
+.modalPanel textarea {
+  box-sizing: border-box;
+  width: 100% !important;
+  min-width: 0;
+  border-color: #ffffff2e !important;
+  border-radius: 8px;
+  background: #ffffff08 !important;
+  color: #fff !important;
+}
+
+.modalPanel input:focus,
+.modalPanel select:focus,
+.modalPanel textarea:focus {
+  border-color: #ff7187 !important;
+  box-shadow: 0 0 0 3px #ff71871c;
+  outline: none;
+}
+
+.modalPanel form button {
+  min-height: 49px;
+  border-radius: 8px;
+  background: var(--cora-gradient) !important;
+  color: #fff !important;
+  transition: filter 220ms ease, transform 220ms ease;
+}
+
+.modalPanel form button:hover {
+  filter: saturate(1.13);
+  transform: translateY(-2px);
+}
+
+.modalPanel > a {
+  justify-content: center;
+  margin-top: 18px !important;
+  color: #ff9cad !important;
+}
+
+.modalPanel .modalX:focus-visible,
+.modalPanel input:focus-visible,
+.modalPanel select:focus-visible,
+.modalPanel textarea:focus-visible,
+.modalPanel form button:focus-visible,
+.modalPanel > a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  .modalBrandLogo {
+    top: 126px;
+    left: 24px;
+    width: 112px;
+    height: 56px;
+  }
+
+  .experienceModal {
+    align-items: end !important;
+    padding: 12px !important;
+  }
+
+  .modalPanel {
+    width: 100% !important;
+    max-width: none !important;
+    max-height: calc(100dvh - 24px);
+    padding: 190px 21px 25px !important;
+    border-radius: 16px;
+  }
+
+  .modalPanel::before {
+    height: 168px;
+  }
+
+  .modalPanel::after {
+    top: 111px !important;
+    left: 21px !important;
+  }
+
+  .modalIntro h2 {
+    font-size: clamp(2.7rem, 12vw, 4.2rem) !important;
+  }
+
+  .modalIntro span {
+    font-size: 12px !important;
+  }
+}
