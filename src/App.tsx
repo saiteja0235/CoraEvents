@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties, type MouseEvent } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type FormEvent, type MouseEvent } from 'react';
 import {
   ArrowDown,
   ArrowUpRight,
@@ -25,6 +25,7 @@ import './values.css';
 import './about-video.css';
 import './scroll-motion.css';
 import './promise-metrics.css';
+import './service-reveal.css';
 import './site-ambient.css';
 
 const scenes = [
@@ -150,6 +151,54 @@ function App() {
   }, []);
 
   useEffect(() => {
+    const valueDeck = document.querySelector<HTMLElement>('.valueDeck');
+
+    if (!valueDeck) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => valueDeck.classList.toggle('isValuesVisible', entry.isIntersecting),
+      { threshold: 0.32 },
+    );
+
+    observer.observe(valueDeck);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const promiseItems = document.querySelector<HTMLElement>('.promiseItems');
+
+    if (!promiseItems) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => promiseItems.classList.toggle('isPromiseVisible', entry.isIntersecting),
+      { threshold: 0.32 },
+    );
+
+    observer.observe(promiseItems);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const serviceCards = Array.from(document.querySelectorAll<HTMLElement>('.serviceGrid > button'));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle('isServiceVisible', entry.isIntersecting);
+        });
+      },
+      { threshold: 0.3 },
+    );
+
+    serviceCards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const metricBar = metricBarReference.current;
 
     if (!metricBar) {
@@ -222,6 +271,45 @@ function App() {
   const openServiceBooking = (event: MouseEvent<HTMLAnchorElement>, service: string) => {
     event.preventDefault();
     openBooking(service);
+  };
+
+  const submitPrivateConsultation = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const getValue = (name: string) => String(formData.get(name) ?? '').trim();
+    const details = getValue('details');
+    const enquiry = [
+      '✨ *CORA EVENTS*',
+      '*Private Consultation*',
+      '',
+      '━━━━━━━━━━━━━━━━━━',
+      '',
+      '🎉 *Event Type*',
+      getValue('service'),
+      '',
+      '━━━━━━━━━━━━━━━━━━',
+      '',
+      '👤 *Client Details*',
+      '',
+      `*Name:* ${getValue('name')}`,
+      `*Phone:* ${getValue('phone')}`,
+      '',
+      '━━━━━━━━━━━━━━━━━━',
+      '',
+      '💬 *Event Details*',
+      '',
+      `“${details || 'I would love to discuss the details.'}”`,
+      '',
+      '━━━━━━━━━━━━━━━━━━',
+      '',
+      'Please contact me with the next steps and availability.',
+      '',
+      '*Enquiry submitted through the CORA Events website.*',
+    ].join('\n');
+
+    window.open(getWhatsAppUrl(enquiry), '_blank', 'noopener,noreferrer');
+    setBooking(false);
   };
 
   const toggleEventFilm = () => {
@@ -511,15 +599,15 @@ function App() {
               <h2>Where your<br /><i>story begins.</i></h2>
               <span>From the first thought to the final toast, we are here to make it seamless.</span>
             </div>
-            <form onSubmit={(event) => { event.preventDefault(); setBooking(false); }}>
-              <input required placeholder="Your name" />
-              <input required type="tel" placeholder="Phone number" />
-              <select value={selectedService} onChange={(event) => setSelectedService(event.target.value)}>
+            <form onSubmit={submitPrivateConsultation}>
+              <input name="name" required autoComplete="name" placeholder="Your name" />
+              <input name="phone" required type="tel" autoComplete="tel" placeholder="Phone number" />
+              <select name="service" required value={selectedService} onChange={(event) => setSelectedService(event.target.value)}>
                 <option value="" disabled>What are we celebrating?</option>
                 {services.map((service) => <option key={service}>{service}</option>)}
               </select>
-              <textarea placeholder="Date, location, guests, and your vision..." />
-              <button>Begin your enquiry <ArrowUpRight /></button>
+              <textarea name="details" placeholder="Date, location, guests, and your vision..." />
+              <button type="submit">Begin your enquiry <ArrowUpRight /></button>
             </form>
             <a href={getWhatsAppUrl('Hello Cora Events, I have a query.')} target="_blank" rel="noreferrer">
               Prefer WhatsApp? Start a conversation

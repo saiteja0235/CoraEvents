@@ -29,15 +29,54 @@ export function ContactExperience() {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
+    const getValue = (name: string) => String(formData.get(name) ?? '').trim();
+    const eventDate = getValue('eventDate');
+    const formattedDate = eventDate
+      ? new Date(`${eventDate}T00:00:00`).toLocaleDateString('en-IN', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+      : 'Date to be decided';
+    const guests = getValue('guests');
+    const details = getValue('details');
+    const guestLabel = guests
+      ? `${guests} ${Number(guests) === 1 ? 'Guest' : 'Guests'}`
+      : 'To be confirmed';
     const enquiry = [
-      'Hello Cora Events, I would like to plan an event.',
-      `Name: ${formData.get('name')}`,
-      `Phone: ${formData.get('phone')}`,
-      `Email: ${formData.get('email')}`,
-      `Event: ${formData.get('eventType')}`,
-      `Event date: ${formData.get('eventDate') || 'To be decided'}`,
-      `Expected guests: ${formData.get('guests') || 'Not provided'}`,
-      `Details: ${formData.get('details') || 'Not provided'}`,
+      '✨ *CORA EVENTS*',
+      '*Event Enquiry*',
+      '',
+      '━━━━━━━━━━━━━━━━━━',
+      '',
+      '🎉 *Event Type*',
+      getValue('eventType'),
+      '',
+      '📅 *Event Date*',
+      formattedDate,
+      '',
+      '👥 *Expected Guests*',
+      guestLabel,
+      '',
+      '━━━━━━━━━━━━━━━━━━',
+      '',
+      '👤 *Client Details*',
+      '',
+      `*Name:* ${getValue('name')}`,
+      `*Phone:* ${getValue('phone')}`,
+      `*Email:* ${getValue('email')}`,
+      '',
+      '━━━━━━━━━━━━━━━━━━',
+      '',
+      '💬 *Client Message*',
+      '',
+      `“${details || 'I would love to discuss the details.'}”`,
+      '',
+      '━━━━━━━━━━━━━━━━━━',
+      '',
+      'Please contact me with the next steps and availability.',
+      '',
+      '*Enquiry submitted through the CORA Events website.*',
     ].join('\n');
 
     window.open(getWhatsAppUrl(enquiry), '_blank', 'noopener,noreferrer');

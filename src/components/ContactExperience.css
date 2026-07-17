@@ -582,28 +582,57 @@ a.contactExperience__detail:hover {
   }
 
   .contactExperience__content {
-    padding: 52px 8vw;
+    padding: 34px 5vw 56px;
     border-right: 0;
     border-left: 0;
+    background:
+      radial-gradient(ellipse 100% 60% at 0% 0%, #ff536d16, transparent 72%),
+      radial-gradient(ellipse 80% 52% at 100% 100%, #b900b81a, transparent 70%),
+      #0a0b10;
+  }
+
+  .contactExperience__content::before {
+    background: radial-gradient(circle at 18% 18%, #ffffff0d 0 1px, transparent 1.2px) 0 0 / 24px 24px;
+    opacity: .3;
+    mask-image: none;
   }
 
   .contactExperience__content::after {
-    top: -8%;
-    right: -30%;
-    width: 105vw;
-    height: 105vw;
+    display: none;
+  }
+
+  .contactExperience__form {
+    padding: 25px 18px 24px;
+    border: 1px solid #ffffff1c;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #ffffff0b, #ffffff03);
+    box-shadow: inset 0 1px 0 #ffffff0b, 0 20px 48px #0004;
   }
 
   .contactExperience__sectionHeading h3 {
-    font-size: clamp(2.55rem, 11vw, 4.2rem);
+    font-size: clamp(2.3rem, 10.5vw, 3.5rem);
   }
 
   .contactExperience__formGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contactExperience__formGrid > label {
+    grid-column: 1 / -1;
+  }
+
+  .contactExperience__formGrid > label:nth-child(5),
+  .contactExperience__formGrid > label:nth-child(6) {
+    grid-column: auto;
   }
 
   .contactExperience__wideField {
-    grid-column: auto;
+    grid-column: 1 / -1;
+  }
+
+  .contactExperience__form input,
+  .contactExperience__form select {
+    min-height: 48px;
   }
 
   .contactExperience__formFooter {

@@ -76,20 +76,43 @@
   transition: color 350ms ease, transform 480ms cubic-bezier(.16, 1, .3, 1);
 }
 
-.valueDeck.isVisible .valueDeck__card {
-  animation: value-card-enter 700ms cubic-bezier(.16, 1, .3, 1) both;
+.valueDeck.isVisible:not(.isValuesVisible) .valueDeck__card {
+  animation: none;
 }
 
-.valueDeck.isVisible .valueDeck__card:nth-child(2) {
-  animation-delay: 90ms;
+.valueDeck.isValuesVisible .valueDeck__card {
+  animation: valueDeckReveal 760ms cubic-bezier(.16, 1, .3, 1) both;
 }
 
-.valueDeck.isVisible .valueDeck__card:nth-child(3) {
-  animation-delay: 180ms;
+.valueDeck.isValuesVisible .valueDeck__card:nth-child(2) {
+  animation-delay: 100ms;
 }
 
-.valueDeck.isVisible .valueDeck__card:nth-child(4) {
-  animation-delay: 270ms;
+.valueDeck.isValuesVisible .valueDeck__card:nth-child(3) {
+  animation-delay: 200ms;
+}
+
+.valueDeck.isValuesVisible .valueDeck__card:nth-child(4) {
+  animation-delay: 300ms;
+}
+
+@keyframes valueDeckReveal {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(34px) scale(.94);
+  }
+
+  68% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
 }
 
 @media (hover: hover) {

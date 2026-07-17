@@ -1,0 +1,58 @@
+.serviceGrid > button.isServiceVisible {
+  animation: serviceCardViewportReveal 680ms cubic-bezier(.16, 1, .3, 1) both !important;
+}
+
+.serviceGrid > button.isServiceVisible .serviceVisual {
+  animation: serviceImageViewportReveal 940ms cubic-bezier(.16, 1, .3, 1) both !important;
+}
+
+.serviceGrid > button.isServiceVisible:nth-child(2n) {
+  animation-delay: 70ms !important;
+}
+
+.serviceGrid > button.isServiceVisible:nth-child(2n) .serviceVisual {
+  animation-delay: 70ms !important;
+}
+
+@keyframes serviceCardViewportReveal {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(28px) scale(.96);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes serviceImageViewportReveal {
+  from {
+    filter: blur(9px) brightness(.45) saturate(.45);
+    transform: scale(1.14);
+  }
+
+  to {
+    filter: saturate(.88) brightness(.86);
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 800px) {
+  .serviceGrid > button.isServiceVisible {
+    animation-duration: 560ms !important;
+  }
+
+  .serviceGrid > button.isServiceVisible .serviceVisual {
+    animation-duration: 760ms !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .serviceGrid > button.isServiceVisible,
+  .serviceGrid > button.isServiceVisible .serviceVisual {
+    animation: none !important;
+  }
+}
