@@ -211,10 +211,50 @@
   padding: clamp(45px, 7vw, 94px) clamp(18px, 3.4vw, 54px);
   border: 1px solid #ffffff18;
   border-top: 0;
-  background: linear-gradient(135deg, #111318f2, #090a0df2);
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(ellipse 62% 95% at -10% 8%, #ff536d20, transparent 66%),
+    radial-gradient(ellipse 54% 85% at 108% 78%, #b900b825, transparent 66%),
+    radial-gradient(circle at 78% 12%, #ff9eb112, transparent 26%),
+    linear-gradient(126deg, #14151be8 0%, #090b10f2 49%, #120a15f0 100%);
+}
+
+.contactExperience__content::before,
+.contactExperience__content::after {
+  position: absolute;
+  z-index: 0;
+  content: '';
+  pointer-events: none;
+}
+
+.contactExperience__content::before {
+  inset: 0;
+  background:
+    linear-gradient(116deg, transparent 0 36%, #ff9eb10d 36.1% 36.22%, transparent 36.35% 100%),
+    linear-gradient(65deg, transparent 0 72%, #ff536d0d 72.1% 72.23%, transparent 72.35% 100%),
+    radial-gradient(circle at 18% 18%, #ffffff0d 0 1px, transparent 1.2px) 0 0 / 22px 22px;
+  opacity: .72;
+  mask-image: linear-gradient(90deg, #000, #0008 56%, transparent 100%);
+}
+
+.contactExperience__content::after {
+  top: -42%;
+  right: -13%;
+  width: min(570px, 52vw);
+  height: min(570px, 52vw);
+  border: 1px solid #ff8da42e;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 35%, #ff839826, transparent 32%),
+    radial-gradient(circle at 64% 62%, #b900b829, transparent 59%);
+  box-shadow: 0 0 0 46px #ff536d05, 0 0 120px #b900b81c;
+  transform: rotate(-18deg);
 }
 
 .contactExperience__form {
+  position: relative;
+  z-index: 1;
   min-width: 0;
   padding-right: clamp(0px, 3vw, 52px);
   border-right: 1px solid #ffffff16;
@@ -346,7 +386,40 @@
 }
 
 .contactExperience__details {
+  position: relative;
+  z-index: 1;
   min-width: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contactExperience__content::before {
+    animation: contactTextureDrift 24s linear infinite alternate;
+  }
+
+  .contactExperience__content::after {
+    animation: contactContentOrbitalDrift 20s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+}
+
+@keyframes contactTextureDrift {
+  from {
+    background-position: 0 0, 0 0, 0 0;
+  }
+
+  to {
+    background-position: 38px -12px, -24px 22px, 13px 13px;
+  }
+}
+
+@keyframes contactContentOrbitalDrift {
+  from {
+    transform: translate3d(0, 0, 0) rotate(-18deg);
+  }
+
+  to {
+    transform: translate3d(-8%, 9%, 0) rotate(-4deg);
+  }
 }
 
 .contactExperience__detailList {
@@ -514,6 +587,13 @@ a.contactExperience__detail:hover {
     border-left: 0;
   }
 
+  .contactExperience__content::after {
+    top: -8%;
+    right: -30%;
+    width: 105vw;
+    height: 105vw;
+  }
+
   .contactExperience__sectionHeading h3 {
     font-size: clamp(2.55rem, 11vw, 4.2rem);
   }
@@ -554,6 +634,8 @@ a.contactExperience__detail:hover {
   .contactExperience::before,
   .contactExperience__heroCopy,
   .contactExperience__heroVisual img,
+  .contactExperience__content::before,
+  .contactExperience__content::after,
   .contactExperience__formFooter button,
   .contactExperience__detail,
   .contactExperience__mapLink {

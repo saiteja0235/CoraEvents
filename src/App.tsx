@@ -25,6 +25,7 @@ import './values.css';
 import './about-video.css';
 import './scroll-motion.css';
 import './promise-metrics.css';
+import './site-ambient.css';
 
 const scenes = [
   { image: weddingHero, name: 'A golden beginning', place: 'Hyderabad / 2026' },
@@ -48,6 +49,8 @@ const services = [
   'Sound, Lighting & LED Walls',
   'Photography & Cinematography',
 ];
+
+const metricTargets = [500, 250, 10, 25] as const;
 
 const spritePosition = (index: number) => `${(index % 4) * 33.333}% ${Math.floor(index / 4) * 33.333}%`;
 
@@ -87,7 +90,9 @@ function App() {
   const [heroTouchStart, setHeroTouchStart] = useState<number | null>(null);
   const [scene, setScene] = useState(0);
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const [metricValues, setMetricValues] = useState<number[]>(() => metricTargets.map(() => 0));
   const [eventFilmPlaying, setEventFilmPlaying] = useState(true);
+  const metricBarReference = useRef<HTMLDivElement>(null);
   const eventFilmRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -141,6 +146,65 @@ function App() {
     return () => {
       observer.disconnect();
       floatListeners.forEach(([element, finishFloat]) => element.removeEventListener('transitionend', finishFloat));
+    };
+  }, []);
+
+  useEffect(() => {
+    const metricBar = metricBarReference.current;
+
+    if (!metricBar) {
+      return;
+    }
+
+    let animationFrame = 0;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const resetMetrics = () => {
+      window.cancelAnimationFrame(animationFrame);
+      setMetricValues(metricTargets.map(() => 0));
+    };
+
+    const animateMetrics = () => {
+      window.cancelAnimationFrame(animationFrame);
+
+      if (prefersReducedMotion) {
+        setMetricValues([...metricTargets]);
+        return;
+      }
+
+      const startTime = performance.now();
+      const duration = 1350;
+
+      const updateMetrics = (timestamp: number) => {
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const easedProgress = 1 - Math.pow(1 - progress, 4);
+
+        setMetricValues(metricTargets.map((target) => Math.round(target * easedProgress)));
+
+        if (progress < 1) {
+          animationFrame = window.requestAnimationFrame(updateMetrics);
+        }
+      };
+
+      animationFrame = window.requestAnimationFrame(updateMetrics);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          animateMetrics();
+          return;
+        }
+
+        resetMetrics();
+      },
+      { threshold: 0.55 },
+    );
+
+    observer.observe(metricBar);
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      observer.disconnect();
     };
   }, []);
 
@@ -202,6 +266,7 @@ function App() {
 
   return (
     <>
+      <div className="siteAmbient" aria-hidden="true" />
       <header className="experienceNav">
         <a href="#top" className="experienceLogo">
           <img src={coraLogo} alt="Cora Events" />
@@ -286,19 +351,11 @@ function App() {
             <p>From intimate gatherings to grand celebrations,<br />we turn your dreams into unforgettable realities.</p>
           </div>
           <div className="heroBottomStack">
-            <div className="openingButtons">
-              <button className="openingCta" type="button" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>
-                Our services <ArrowUpRight />
-              </button>
-              <button className="openingGhost" type="button" onClick={() => document.getElementById('stories')?.scrollIntoView({ behavior: 'smooth' })}>
-                View gallery <span>▦</span>
-              </button>
-            </div>
-            <div className="metricBar">
-              <div><b>✦</b><strong>500+</strong><span>Events completed</span></div>
-              <div><b>♟</b><strong>250+</strong><span>Happy clients</span></div>
-              <div><b>♜</b><strong>10+</strong><span>Years of experience</span></div>
-              <div><b>●</b><strong>25+</strong><span>Cities served</span></div>
+            <div className="metricBar" ref={metricBarReference}>
+              <div><b>✦</b><strong>{metricValues[0]}+</strong><span>Events completed</span></div>
+              <div><b>♟</b><strong>{metricValues[1]}+</strong><span>Happy clients</span></div>
+              <div><b>♜</b><strong>{metricValues[2]}+</strong><span>Years of experience</span></div>
+              <div><b>●</b><strong>{metricValues[3]}+</strong><span>Cities served</span></div>
             </div>
           </div>
           <div className="openingMeta">

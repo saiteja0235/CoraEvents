@@ -1,0 +1,115 @@
+.siteAmbient {
+  position: fixed;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 66% 52% at -12% 11%, #ff536d22, transparent 68%),
+    radial-gradient(ellipse 56% 62% at 108% 73%, #b900b828, transparent 68%),
+    radial-gradient(circle at 70% 14%, #ff9eb116, transparent 23%);
+  background-position: 0 0, 100% 100%, 70% 14%;
+  background-size: 145% 145%, 138% 138%, 122% 122%;
+  mix-blend-mode: screen;
+}
+
+.siteAmbient::before,
+.siteAmbient::after {
+  position: absolute;
+  content: '';
+  pointer-events: none;
+}
+
+.siteAmbient::before {
+  inset: 0;
+  background:
+    linear-gradient(118deg, transparent 0 38%, #ff9eb10b 38.1% 38.18%, transparent 38.3% 100%),
+    linear-gradient(62deg, transparent 0 76%, #ff536d0a 76.1% 76.18%, transparent 76.3% 100%),
+    radial-gradient(circle, #ffffff10 0 .65px, transparent .8px) 0 0 / 25px 25px;
+  opacity: .58;
+  mask-image: linear-gradient(90deg, #000, #0007 62%, transparent 100%);
+}
+
+.siteAmbient::after {
+  top: 22%;
+  right: -18vw;
+  width: min(48vw, 740px);
+  height: min(48vw, 740px);
+  border: 1px solid #ff7f9630;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 36% 37%, #ff536d18, transparent 28%),
+    radial-gradient(circle at 67% 68%, #b900b820, transparent 57%);
+  box-shadow: 0 0 0 54px #ff536d05, 0 0 140px #b900b816;
+  opacity: .86;
+  transform: rotate(-20deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .siteAmbient {
+    animation: siteAmbientGlowDrift 20s ease-in-out infinite alternate;
+  }
+
+  .siteAmbient::before {
+    animation: siteAmbientTextureDrift 32s linear infinite alternate;
+  }
+
+  .siteAmbient::after {
+    animation: siteAmbientOrbitalDrift 28s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+}
+
+@keyframes siteAmbientGlowDrift {
+  from {
+    background-position: 0 0, 100% 100%, 70% 14%;
+  }
+
+  55% {
+    background-position: 14% -8%, 84% 86%, 61% 24%;
+  }
+
+  to {
+    background-position: -9% 12%, 108% 77%, 78% 7%;
+  }
+}
+
+@keyframes siteAmbientTextureDrift {
+  from {
+    background-position: 0 0, 0 0, 0 0;
+  }
+
+  to {
+    background-position: 46px -18px, -28px 26px, 14px 14px;
+  }
+}
+
+@keyframes siteAmbientOrbitalDrift {
+  from {
+    transform: translate3d(0, 0, 0) rotate(-20deg);
+  }
+
+  to {
+    transform: translate3d(-9%, 8%, 0) rotate(-2deg);
+  }
+}
+
+@media (max-width: 700px) {
+  .siteAmbient {
+    opacity: .72;
+  }
+
+  .siteAmbient::after {
+    top: 39%;
+    right: -43vw;
+    width: 112vw;
+    height: 112vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .siteAmbient::before,
+  .siteAmbient::after {
+    animation: none;
+  }
+}
