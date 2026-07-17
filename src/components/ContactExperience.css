@@ -314,7 +314,18 @@
   resize: vertical;
 }
 
+.contactExperience__dateField {
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
+  overflow: hidden;
+}
+
 .contactExperience__dateField input {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-inline-size: 0;
   color-scheme: dark;
   text-align: left;
 }
