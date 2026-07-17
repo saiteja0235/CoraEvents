@@ -458,7 +458,6 @@ function App() {
               <p className="goldLabel">Our story</p>
               <h2>Crafting Moments.<br />Creating <i>Memories.</i></h2>
               <p>At Cora Events, we believe every celebration has a story waiting to be beautifully told. We turn your dreams into extraordinary experiences that stay with you forever.</p>
-              <button type="button" onClick={() => setBooking(true)}>Our journey <ArrowUpRight size={16} /></button>
             </div>
             <div className="aboutHeroImage">
               <img src={luxuryReception} alt="Chandelier-lit wedding table" />

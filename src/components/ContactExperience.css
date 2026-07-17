@@ -276,6 +276,7 @@
 .contactExperience__form label {
   display: grid;
   gap: 8px;
+  min-width: 0;
 }
 
 .contactExperience__form label > span {
@@ -288,6 +289,8 @@
 .contactExperience__form input,
 .contactExperience__form select,
 .contactExperience__form textarea {
+  box-sizing: border-box;
+  min-width: 0;
   width: 100%;
   min-height: 50px;
   border: 1px solid #ffffff20;
@@ -614,16 +617,12 @@ a.contactExperience__detail:hover {
   }
 
   .contactExperience__formGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .contactExperience__formGrid > label {
     grid-column: 1 / -1;
-  }
-
-  .contactExperience__formGrid > label:nth-child(5),
-  .contactExperience__formGrid > label:nth-child(6) {
-    grid-column: auto;
   }
 
   .contactExperience__wideField {
@@ -631,7 +630,9 @@ a.contactExperience__detail:hover {
   }
 
   .contactExperience__form input,
-  .contactExperience__form select {
+  .contactExperience__form select,
+  .contactExperience__form textarea {
+    font-size: 16px;
     min-height: 48px;
   }
 

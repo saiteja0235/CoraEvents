@@ -196,7 +196,7 @@ export function ContactExperience() {
               <div>
                 <b>Consultations</b>
                 <strong>By appointment</strong>
-                <small>Serving Vijayawada and beyond</small>
+                <small>Serving celebrations across India</small>
               </div>
             </div>
           </div>
