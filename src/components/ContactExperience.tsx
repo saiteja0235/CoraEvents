@@ -133,7 +133,7 @@ export function ContactExperience() {
                 {serviceOptions.map((service) => <option key={service}>{service}</option>)}
               </select>
             </label>
-            <label>
+            <label className="contactExperience__dateField">
               <span>Event date</span>
               <input name="eventDate" type="date" />
             </label>
@@ -143,7 +143,7 @@ export function ContactExperience() {
             </label>
             <label className="contactExperience__wideField">
               <span>Tell us about your event</span>
-              <textarea name="details" placeholder="Share your ideas, location, guest count, and anything important to you..." />
+              <textarea name="details" placeholder="Share your vision, location, guest count, and key details..." />
             </label>
           </div>
           <div className="contactExperience__formFooter">

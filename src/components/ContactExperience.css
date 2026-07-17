@@ -310,7 +310,23 @@
 .contactExperience__form textarea {
   min-height: 116px;
   padding: 14px;
+  line-height: 1.5;
   resize: vertical;
+}
+
+.contactExperience__dateField input {
+  color-scheme: dark;
+  text-align: left;
+}
+
+.contactExperience__dateField input::-webkit-date-and-time-value,
+.contactExperience__dateField input::-webkit-datetime-edit {
+  text-align: left;
+}
+
+.contactExperience__dateField input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(1) opacity(.78);
 }
 
 .contactExperience__form option {
@@ -634,6 +650,10 @@ a.contactExperience__detail:hover {
   .contactExperience__form textarea {
     font-size: 16px;
     min-height: 48px;
+  }
+
+  .contactExperience__form textarea {
+    min-height: 144px;
   }
 
   .contactExperience__formFooter {
